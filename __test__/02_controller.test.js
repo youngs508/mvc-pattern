@@ -112,21 +112,23 @@ describe('🚀 (2-3) controller 구현', () => {
 
         console.table(res.body)
 
-        if (res.body.length) {
-          expect(res).to.have.status(200)
-          res.body.forEach((record) => {
-            expect(record).has.all.keys([
-              'id',
-              'url',
-              'title',
-              'visits',
-              'updatedAt',
-              'createdAt'
-            ])
-          })
-        } else {
-          expect(res).to.have.status(204)
-        }
+        expect(res).to.have.status(200)
+
+        let newRecord = res.body.filter(record => record.id === recordId)
+        expect(newRecord).to.have.lengthOf(1)
+        expect(newRecord[0].url).to.be.eql('https://www.github.com')
+        expect(newRecord[0].title).to.be.eql('The world’s leading software development platform · GitHub')
+
+        res.body.forEach((record) => {
+          expect(record).has.all.keys([
+            'id',
+            'url',
+            'title',
+            'visits',
+            'updatedAt',
+            'createdAt'
+          ])
+        })
 
         done()
       })
