@@ -113,6 +113,7 @@ describe('🚀 (2-3) controller 구현', () => {
         console.table(res.body)
 
         expect(res).to.have.status(200)
+        expect(res.body).to.exist;
 
         let newRecord = res.body.filter(record => record.id === recordId)
         expect(newRecord).to.have.lengthOf(1)
