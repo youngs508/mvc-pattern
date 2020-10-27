@@ -50,7 +50,7 @@ describe('🚀 (1-2) 모델 생성', () => {
   it('url 모델은 요구하는 필드를 갖고 있어야 합니다', () => {
     const keys = Object.keys(urlModel.tableAttributes);
     console.table(keys);
-    expect(keys).to.have.deep.members([
+    expect(keys).to.include.members([
       'id',
       'url',
       'title',
@@ -70,7 +70,9 @@ describe('🚀 (1-2) 모델 생성', () => {
       updatedAt: 'DATE'
     }
     for (let key in urlModel.tableAttributes) {
-      expect(urlModel.tableAttributes[key].type.constructor.name).to.be.eql(fieldTypeMap[key])
+      if (key !== 'userId') {
+        expect(urlModel.tableAttributes[key].type.constructor.name).to.be.eql(fieldTypeMap[key])
+      }
     }
   })
 
@@ -96,7 +98,7 @@ describe('🚀 (1-3) 마이그레이션', () => {
     const fieldTypeMap = results.map(r => [r.Field, r.Type])
     console.table(fieldTypeMap)
 
-    expect(fieldTypeMap).to.have.deep.members([
+    expect(fieldTypeMap).to.deep.include.members([
       ['id', 'int'],
       ['url', 'varchar(255)'],
       ['title', 'varchar(255)'],

@@ -80,7 +80,7 @@ describe('🚀 (2-3) controller 구현', () => {
           return;
         }
         expect(res).to.have.status(201)
-        expect(res.body).has.all.keys([
+        expect(res.body).to.have.include.keys([
           'id',
           'url',
           'title',
@@ -95,7 +95,7 @@ describe('🚀 (2-3) controller 구현', () => {
         visitCount = res.body.visits
 
         expect(res.body.url).to.equal('https://www.github.com')
-        expect(res.body.title).to.equal('The world’s leading software development platform · GitHub')
+        expect(res.body.title).to.include('GitHub')
 
         done();
       })
@@ -118,10 +118,10 @@ describe('🚀 (2-3) controller 구현', () => {
         let newRecord = res.body.filter(record => record.id === recordId)
         expect(newRecord).to.have.lengthOf(1)
         expect(newRecord[0].url).to.be.eql('https://www.github.com')
-        expect(newRecord[0].title).to.be.eql('The world’s leading software development platform · GitHub')
+        expect(newRecord[0].title).to.be.include('GitHub')
 
         res.body.forEach((record) => {
-          expect(record).has.all.keys([
+          expect(record).to.have.include.keys([
             'id',
             'url',
             'title',
